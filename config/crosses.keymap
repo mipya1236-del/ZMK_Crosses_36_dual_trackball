@@ -105,7 +105,7 @@
 &none          &none      &mkp LCLK       &mkp RCLK       &none    &none  &none            &none            &none            &none
 &kp A          &kp S      &kp D           &kp F           &none    &none  &kp J            &kp K            &kp L            &kp SEMICOLON
 &game_tog 7 Z  &none      &none           &none           &none    &none  &kp LEFT_ARROW   &kp DOWN_ARROW   &kp RIGHT_ARROW  &kp UP_ARROW
-                            &kp SPACE     &none           &none    &none  &none            &kp LEFT_ALT
+                            &kp SPACE     &none           &kp ENTER    &kp ESC  &none            &kp LEFT_ALT
             >;
         };
     };
