@@ -9,61 +9,103 @@
     quick-tap-ms = <150>;
 };
 
+&mt {
+    tapping-term-ms = <200>;
+    flavor = "balanced";
+    quick-tap-ms = <150>;
+};
+
 / {
+    behaviors {
+        game_tog: game_toggle {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <500>;
+            flavor = "tap-preferred";
+            bindings = <&tog>, <&kp>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
-        Main_Layer {
+        base_layer {
+            display-name = "Base";
             bindings = <
-&lt 5 Q  &kp W  &kp E     &kp R     &kp T        &kp Y      &kp U            &kp I      &kp O    &kp P
-&kp A    &kp S  &kp D     &kp F     &kp G        &kp H      &kp J            &kp K      &kp L    &kp ENTER
-&kp Z    &kp X  &kp C     &kp V     &kp B        &kp N      &kp M            &kp COMMA  &kp DOT  &kp FSLH
-                &mkp MB1  &mkp MB2  &lt 1 ESC    &kp SPACE  &lt 4 BACKSPACE  &kp SPACE
+&kp Q             &kp W             &kp F                &kp P                &kp B        &kp J      &kp L                &kp U                &kp Y             &kp SQT
+&mt LEFT_GUI A    &mt LEFT_ALT R    &mt LEFT_CONTROL S   &mt LEFT_SHIFT T     &kp G        &kp M      &mt RIGHT_SHIFT N    &mt RIGHT_CONTROL E  &mt RIGHT_ALT I   &mt RIGHT_GUI O
+&game_tog 7 Z     &kp X             &kp C                &kp D                &kp V        &kp K      &kp H                &kp COMMA            &kp DOT           &kp FSLH
+                                    &lt 6 DELETE         &lt 4 BACKSPACE      &lt 5 ENTER   &lt 2 TAB  &lt 1 SPACE          &lt 3 ESC
             >;
         };
 
-        Num_Layer {
+        nav_layer {
+            display-name = "Nav";
             bindings = <
-&kp F1          &kp F2     &kp F3        &kp F4    &kp F5     &kp F6     &kp F7            &kp F8         &kp F9     &kp F10
-&kp N1          &kp N2     &kp N3        &kp N4    &kp N5     &kp N6     &kp N7            &kp N8         &kp N9     &kp N0
-&kp LEFT_SHIFT  &kp LCTRL  &kp LEFT_ALT  &kp CAPS  &kp TAB    &kp MINUS  &kp LEFT_BRACKET  &kp SEMICOLON  &kp COMMA  &kp BACKSLASH
-                           &trans        &trans    &trans     &kp F11    &kp F12           &kp SPACE
+&kp PAGE_UP    &kp HOME     &kp UP_ARROW    &kp END          &kp INSERT    &none  &none             &none              &none          &none
+&kp PAGE_DOWN  &kp LEFT_ARROW &kp DOWN_ARROW &kp RIGHT_ARROW  &kp CAPS      &none  &kp RIGHT_SHIFT   &kp RIGHT_CONTROL  &kp RIGHT_ALT   &kp RIGHT_GUI
+&kp LC(Z)      &kp LC(X)    &kp LC(C)       &kp LC(V)        &kp LC(Y)     &none  &none             &none              &none          &none
+                            &kp DELETE      &kp BACKSPACE    &kp ENTER     &none  &none             &none
             >;
         };
 
-        Auto_Mouse_Layer {
+        mouse_layer {
+            display-name = "Mouse";
             bindings = <
-&trans  &trans  &trans  &trans     &trans       &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &mkp LCLK  &mkp RCLK    &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans     &trans       &trans  &trans  &trans  &trans  &trans
-                &trans  &trans     &trans       &trans  &trans  &trans
+&none        &none             &mmv MOVE_UP    &none            &none        &none  &none             &none              &none          &none
+&none        &mmv MOVE_LEFT    &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none        &none  &kp RIGHT_SHIFT   &kp RIGHT_CONTROL  &kp RIGHT_ALT   &kp RIGHT_GUI
+&kp LC(Z)    &kp LC(X)         &kp LC(C)       &kp LC(V)        &kp LC(Y)    &none  &none             &none              &none          &none
+                              &mkp MCLK       &mkp LCLK        &mkp RCLK    &none  &none             &none
             >;
         };
 
-        Snipe_Layer {
+        media_layer {
+            display-name = "Media";
             bindings = <
-&trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-                &trans  &trans  &trans    &trans  &trans  &trans
+&none       &none        &none         &none        &none       &none  &none             &none              &none          &none
+&none       &kp C_PREV   &kp C_VOL_DN  &kp C_VOL_UP &kp C_NEXT  &none  &kp RIGHT_SHIFT   &kp RIGHT_CONTROL  &kp RIGHT_ALT   &kp RIGHT_GUI
+&none       &bt BT_SEL 0 &bt BT_SEL 1  &bt BT_SEL 2 &bt BT_SEL 3 &none &none             &none              &none          &none
+                         &kp C_STOP    &kp C_PP     &kp C_MUTE  &none  &none             &none
             >;
         };
 
-        Arrow_Layer {
+        num_layer {
+            display-name = "Num";
             bindings = <
-&trans  &trans          &trans          &trans           &trans           &trans     &trans    &trans     &trans      &trans
-&trans  &trans          &kp UP_ARROW    &trans           &kp PAGE_UP      &trans     &trans    &trans     &trans      &trans
-&trans  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp PAGE_DOWN    &kp EQUAL  &kp RBKT  &kp SQT    &kp PERIOD  &kp SLASH
-                        &trans          &trans           &trans           &trans     &trans    &kp SPACE
+&none        &none        &none             &none             &none       &kp LBKT       &kp N7   &kp N8   &kp N9      &kp RBKT
+&kp LEFT_GUI &kp LEFT_ALT &kp LEFT_CONTROL  &kp LEFT_SHIFT    &none       &kp SEMICOLON  &kp N4   &kp N5   &kp N6      &kp EQUAL
+&none        &none        &none             &none             &none       &kp GRAVE      &kp N1   &kp N2   &kp N3      &kp BSLH
+                          &none             &none             &none       &kp DOT        &kp N0   &kp MINUS
             >;
         };
 
-        BT_Layer {
+        sym_layer {
+            display-name = "Sym";
             bindings = <
-&trans  &trans  &trans  &trans  &trans    &trans      &trans        &trans        &trans        &trans
-&trans  &trans  &trans  &trans  &trans    &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3
-&trans  &trans  &trans  &trans  &trans    &trans      &trans        &trans        &trans        &trans
-                &trans  &trans  &trans    &trans      &trans        &kp SPACE
+&none        &none        &none             &none             &none       &kp LBRC   &kp AMPS  &kp ASTRK &kp LPAR  &kp RBRC
+&kp LEFT_GUI &kp LEFT_ALT &kp LEFT_CONTROL  &kp LEFT_SHIFT    &none       &kp COLON  &kp DLLR  &kp PRCNT &kp CARET &kp PLUS
+&none        &none        &none             &none             &none       &kp TILDE  &kp EXCL  &kp AT    &kp HASH  &kp PIPE
+                          &none             &none             &none       &kp DOT    &kp RPAR  &kp UNDER
+            >;
+        };
+
+        fun_layer {
+            display-name = "Fun";
+            bindings = <
+&none        &none        &none             &none             &none       &kp PSCRN       &kp F7  &kp F8    &kp F9          &kp F12
+&kp LEFT_GUI &kp LEFT_ALT &kp LEFT_CONTROL  &kp LEFT_SHIFT    &none       &kp SCROLLLOCK  &kp F4  &kp F5    &kp F6          &kp F11
+&none        &none        &none             &none             &none       &kp PAUSE_BREAK &kp F1  &kp F2    &kp F3          &kp F10
+                          &none             &none             &none       &kp K_APP       &kp SPACE &kp TAB
+            >;
+        };
+
+        game_layer {
+            display-name = "Game";
+            bindings = <
+&none          &none      &none      &none      &none    &none  &none          &none          &none      &none
+&kp A          &kp S      &kp D      &kp F      &none    &none  &kp J          &kp K          &kp L      &kp SEMICOLON
+&game_tog 7 Z  &none      &none      &none      &none    &none  &none          &none          &none      &none
+                            &none    &kp SPACE  &none    &none  &kp RIGHT_ALT  &none
             >;
         };
     };
